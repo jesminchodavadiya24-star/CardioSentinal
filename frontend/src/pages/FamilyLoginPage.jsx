@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { HeartPulse, Lock, Phone, ShieldAlert, ArrowRight, HelpCircle, X, CheckCircle2, Globe } from 'lucide-react';
@@ -62,7 +63,7 @@ export default function FamilyLoginPage() {
     setError('');
 
     try {
-      const res = await fetch('http://localhost:8000/api/family/login', {
+      const res = await fetch(getApiUrl('/api/family/login'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone_number: phoneNumber, pin })

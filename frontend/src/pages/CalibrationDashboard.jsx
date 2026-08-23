@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect } from 'react';
 import DashboardShell from '../components/DashboardShell';
 import {
@@ -18,7 +19,7 @@ export default function CalibrationDashboard() {
   useEffect(() => {
     async function fetchCalibrationData() {
       try {
-        const res = await fetch('http://localhost:8000/api/model-trust/calibration');
+        const res = await fetch(getApiUrl('/api/model-trust/calibration'));
         if (res.ok) {
           const data = await res.json();
           setModelMetrics(data);

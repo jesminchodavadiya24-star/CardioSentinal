@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashboardShell from '../components/DashboardShell';
@@ -22,7 +23,7 @@ export default function ProphylaxisTracker() {
   const fetchRecords = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/api/prophylaxis/records');
+      const res = await fetch(getApiUrl('/api/prophylaxis/records'));
       if (res.ok) {
         const data = await res.json();
         setRecordsData(data);
@@ -43,7 +44,7 @@ export default function ProphylaxisTracker() {
 
   const handleSendReminder = async (childId, anonymizedCode, isDiscontinued = false) => {
     try {
-      const res = await fetch('http://localhost:8000/api/family/notify-fallback', {
+      const res = await fetch(getApiUrl('/api/family/notify-fallback'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ child_id: childId, channel: 'both' })

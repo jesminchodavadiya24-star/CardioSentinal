@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect } from 'react';
 import DashboardShell from '../components/DashboardShell';
 import StudentSearchBar from '../components/StudentSearchBar';
@@ -40,13 +41,13 @@ export default function CampCompletionReportPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const resSummary = await fetch('http://localhost:8000/api/admin/camp-quality?camp_id=camp-01');
+        const resSummary = await fetch(getApiUrl('/api/admin/camp-quality?camp_id=camp-01'));
         if (resSummary.ok) {
           const dataSummary = await resSummary.json();
           setReportSummary(dataSummary);
         }
 
-        const resReferrals = await fetch('http://localhost:8000/api/admin/camp-completion-referrals?camp_id=camp-01');
+        const resReferrals = await fetch(getApiUrl('/api/admin/camp-completion-referrals?camp_id=camp-01'));
         if (resReferrals.ok) {
           const dataReferrals = await resReferrals.json();
           if (dataReferrals && dataReferrals.length > 0) {
@@ -302,7 +303,7 @@ export default function CampCompletionReportPage() {
                       {/* Action PDF */}
                       <td className="py-3.5 px-3 text-right">
                         <a
-                          href={`http://localhost:8000/api/referral/${item.anonymized_code}/pdf`}
+                          href={getApiUrl(`/api/referral/${item.anonymized_code}/pdf`)}
                           target="_blank"
                           rel="noreferrer"
                           className="px-3 py-1.5 rounded-lg bg-black/60 border border-white/10 hover:border-[#4EB8E0]/50 text-[#4EB8E0] hover:text-white font-semibold text-[11px] font-mono inline-flex items-center gap-1 transition-all"

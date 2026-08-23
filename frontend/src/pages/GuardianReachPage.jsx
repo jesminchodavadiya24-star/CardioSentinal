@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect } from 'react';
 import DashboardShell from '../components/DashboardShell';
 import StudentSearchBar from '../components/StudentSearchBar';
@@ -18,7 +19,7 @@ export default function GuardianReachPage() {
   const fetchReachStatus = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/api/asha/guardian-reach-status');
+      const res = await fetch(getApiUrl('/api/asha/guardian-reach-status'));
       if (res.ok) {
         const data = await res.json();
         setRecords(data.reach_records || []);
@@ -43,7 +44,7 @@ export default function GuardianReachPage() {
     const timer = setTimeout(async () => {
       setSearching(true);
       try {
-        const res = await fetch(`http://localhost:8000/api/children/search?q=${encodeURIComponent(searchTerm)}`);
+        const res = await fetch(getApiUrl(`/api/children/search?q=${encodeURIComponent(searchTerm)}`));
         if (res.ok) {
           const data = await res.json();
           setSearchResults(data.children || []);
@@ -59,7 +60,7 @@ export default function GuardianReachPage() {
 
   const handleTriggerFallback = async (childId, channel) => {
     try {
-      const res = await fetch('http://localhost:8000/api/family/notify-fallback', {
+      const res = await fetch(getApiUrl('/api/family/notify-fallback'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ child_id: childId, channel })
@@ -78,7 +79,7 @@ export default function GuardianReachPage() {
   const handleBatchTriggerFallback = async (channel = 'both') => {
     if (selectedIds.length === 0) return;
     try {
-      const res = await fetch('http://localhost:8000/api/family/notify-fallback-batch', {
+      const res = await fetch(getApiUrl('/api/family/notify-fallback-batch'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ child_ids: selectedIds, channel })

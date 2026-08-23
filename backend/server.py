@@ -560,7 +560,24 @@ def init_db():
     """)
 
     conn.commit()
-    conn.close()
+
+    # Check if database has children records. If empty (fresh cloud deployment), auto-seed 20 curated demo records!
+    try:
+        cursor.execute("SELECT count(*) FROM children")
+        row_count = cursor.fetchone()[0]
+        conn.close()
+        if row_count == 0:
+            print("🌱 Fresh database detected! Auto-seeding 20 curated demo student records...")
+            try:
+                from seed_demo_20 import seed_demo_20
+                seed_demo_20()
+            except Exception as s_err:
+                print(f"Auto-seed exception: {s_err}")
+    except Exception:
+        try:
+            conn.close()
+        except Exception:
+            pass
 
 
 init_db()

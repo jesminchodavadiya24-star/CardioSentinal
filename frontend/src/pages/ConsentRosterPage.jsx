@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect } from 'react';
 import DashboardShell from '../components/DashboardShell';
 import StudentSearchBar from '../components/StudentSearchBar';
@@ -11,7 +12,7 @@ export default function ConsentRosterPage() {
   useEffect(() => {
     async function fetchRoster() {
       try {
-        const res = await fetch('http://localhost:8000/api/admin/roster?camp_id=camp-01');
+        const res = await fetch(getApiUrl('/api/admin/roster?camp_id=camp-01'));
         if (res.ok) {
           const data = await res.json();
           setRoster(data);
@@ -33,7 +34,7 @@ export default function ConsentRosterPage() {
     } : item));
 
     try {
-      await fetch('http://localhost:8000/api/admin/roster/check-in', {
+      await fetch(getApiUrl('/api/admin/roster/check-in'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ roster_id: rosterId, checked_in: nextState })
@@ -46,7 +47,7 @@ export default function ConsentRosterPage() {
   const handleUpdateConsent = async (rosterId, newConsentStatus) => {
     setRoster(prev => prev.map(item => item.id === rosterId ? { ...item, consent_status: newConsentStatus } : item));
     try {
-      await fetch('http://localhost:8000/api/admin/roster/consent', {
+      await fetch(getApiUrl('/api/admin/roster/consent'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ roster_id: rosterId, consent_status: newConsentStatus })

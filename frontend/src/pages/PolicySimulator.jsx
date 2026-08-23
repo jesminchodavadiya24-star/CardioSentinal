@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect } from 'react';
 import DashboardShell from '../components/DashboardShell';
 import {
@@ -42,7 +43,7 @@ export default function PolicySimulator() {
     setIsSimulating(true);
 
     try {
-      const res = await fetch('http://localhost:8000/post-simulate', {
+      const res = await fetch(getApiUrl('/post-simulate'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

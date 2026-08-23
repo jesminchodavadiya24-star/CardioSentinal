@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect } from 'react';
 import DashboardShell from '../components/DashboardShell';
 import {
@@ -29,7 +30,7 @@ export default function FederatedMonitor() {
 
   const fetchFederatedSimulation = async (eps) => {
     try {
-      const res = await fetch('http://localhost:8000/api/federated-simulation', {
+      const res = await fetch(getApiUrl('/api/federated-simulation'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ num_rounds: 10, epsilon: eps })

@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect } from 'react';
 import DashboardShell from '../components/DashboardShell';
 import { 
@@ -132,7 +133,7 @@ export default function AshaRoutePage() {
 
   const fetchRoute = async () => {
     try {
-      const res = await fetch('http://localhost:8000/api/asha/route-today');
+      const res = await fetch(getApiUrl('/api/asha/route-today'));
       if (res.ok) {
         const data = await res.json();
         setRouteData(data);
@@ -158,7 +159,7 @@ export default function AshaRoutePage() {
     });
 
     try {
-      await fetch('http://localhost:8000/api/asha/toggle-stop-visited', {
+      await fetch(getApiUrl('/api/asha/toggle-stop-visited'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ stop_id: stopId, visited: !currentVisited })

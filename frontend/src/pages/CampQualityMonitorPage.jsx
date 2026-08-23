@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect } from 'react';
 import DashboardShell from '../components/DashboardShell';
 import { Activity, ShieldCheck, CheckCircle2, AlertTriangle, Mic, Radio, Users, RefreshCw } from 'lucide-react';
@@ -7,7 +8,7 @@ export default function CampQualityMonitorPage() {
 
   const fetchQualityMetrics = async () => {
     try {
-      const res = await fetch('http://localhost:8000/api/admin/camp-quality?camp_id=camp-01');
+      const res = await fetch(getApiUrl('/api/admin/camp-quality?camp_id=camp-01'));
       if (res.ok) {
         const data = await res.json();
         setQualityData(data);

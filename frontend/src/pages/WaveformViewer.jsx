@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import DashboardShell from '../components/DashboardShell';
@@ -25,7 +26,7 @@ export default function WaveformViewer() {
   useEffect(() => {
     const fetchDetail = async () => {
       try {
-        const res = await fetch('http://localhost:8000/api/triage/children');
+        const res = await fetch(getApiUrl('/api/triage/children'));
         if (res.ok) {
           const data = await res.json();
           const found = (data.children || []).find((c) => c.id === id || c.anonymized_code === id);
@@ -34,7 +35,7 @@ export default function WaveformViewer() {
 
           if (target && target.id) {
             try {
-              const survRes = await fetch(`http://localhost:8000/api/children/${target.id}/survival-forecast`);
+              const survRes = await fetch(getApiUrl(`/api/children/${target.id}/survival-forecast`));
               if (survRes.ok) {
                 const sData = await survRes.json();
                 setSurvivalData(sData);

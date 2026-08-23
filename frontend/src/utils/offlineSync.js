@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 /**
  * Client-Side IndexedDB Offline Queue Manager for CardioSentinel ASHA Field Screening (Addendum 2 §B.1 & Addendum 3 Fix 3).
  * Ensures idempotent syncing via client-generated UUIDs and automatic flushing when online.
@@ -68,7 +69,7 @@ export async function flushOfflineQueue() {
 
     if (records.length === 0) return { synced: 0, conflicts: 0 };
 
-    const res = await fetch('http://localhost:8000/api/triage/sync-offline', {
+    const res = await fetch(getApiUrl('/api/triage/sync-offline'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ items: records })

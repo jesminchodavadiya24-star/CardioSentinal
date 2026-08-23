@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect } from 'react';
 import DashboardShell from '../components/DashboardShell';
 import { 
@@ -36,13 +37,13 @@ export default function AshaImpactPage() {
   useEffect(() => {
     async function fetchImpact() {
       try {
-        const res = await fetch('http://localhost:8000/api/asha/impact-scorecard');
+        const res = await fetch(getApiUrl('/api/asha/impact-scorecard'));
         if (res.ok) {
           const data = await res.json();
           setImpact(data);
         }
         
-        const fbRes = await fetch('http://localhost:8000/api/asha/technique-feedback');
+        const fbRes = await fetch(getApiUrl('/api/asha/technique-feedback'));
         if (fbRes.ok) {
           const fbData = await fbRes.json();
           setFeedback(fbData);
@@ -97,7 +98,7 @@ export default function AshaImpactPage() {
   const targetTickPct = Math.min((targetSnr / maxSnr) * 100, 100).toFixed(2);
 
   const handleDownloadCertificate = () => {
-    const url = 'http://localhost:8000/api/asha/impact-certificate.pdf';
+    const url = getApiUrl('/api/asha/impact-certificate.pdf');
     const link = document.createElement('a');
     link.href = url;
     link.setAttribute('download', 'CardioSentinel_Impact_Certificate_Kavita_Devi.pdf');

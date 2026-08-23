@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { HeartPulse, ArrowLeft, Calendar, ShieldCheck, CheckCircle2, AlertTriangle, Clock, Bell, Info, ChevronDown, ChevronUp, Syringe, Award, MapPin } from 'lucide-react';
@@ -15,7 +16,7 @@ export default function FamilyProphylaxisPage() {
   useEffect(() => {
     async function fetchProphylaxis() {
       try {
-        const res = await fetch(`http://localhost:8000/api/family/prophylaxis/${targetId}`);
+        const res = await fetch(getApiUrl(`/api/family/prophylaxis/${targetId}`));
         if (res.ok) {
           const json = await res.json();
           setData(json);
@@ -34,7 +35,7 @@ export default function FamilyProphylaxisPage() {
     setToggleLoading(true);
     const nextState = !reminderEnabled;
     try {
-      const res = await fetch('http://localhost:8000/api/family/prophylaxis/reminder-toggle', {
+      const res = await fetch(getApiUrl('/api/family/prophylaxis/reminder-toggle'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ child_id: targetId, enabled: nextState })

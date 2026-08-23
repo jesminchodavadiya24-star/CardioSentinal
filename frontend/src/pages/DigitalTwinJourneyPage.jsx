@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import DashboardShell from '../components/DashboardShell';
@@ -134,7 +135,7 @@ export default function DigitalTwinJourneyPage() {
       async function fetchDigitalTwin() {
         try {
           const target = childId || 'child-0121';
-          const res = await fetch(`http://localhost:8000/api/admin/care-journey/${target}`);
+          const res = await fetch(getApiUrl(`/api/admin/care-journey/${target}`));
           if (res.ok) {
             const data = await res.json();
             setTwinData(data);
@@ -170,7 +171,7 @@ export default function DigitalTwinJourneyPage() {
     // Also attempt backend search
     const timer = setTimeout(async () => {
       try {
-        const res = await fetch(`http://localhost:8000/api/children/search?q=${encodeURIComponent(searchTerm)}`);
+        const res = await fetch(getApiUrl(`/api/children/search?q=${encodeURIComponent(searchTerm)}`));
         if (res.ok) {
           const data = await res.json();
           if (data.children && data.children.length > 0) {

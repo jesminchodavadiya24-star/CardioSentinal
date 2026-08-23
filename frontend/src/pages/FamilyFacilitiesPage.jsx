@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { HeartPulse, MapPin, Navigation, Clock, Building2, ExternalLink, ArrowLeft, ShieldAlert, CheckCircle2, AlertTriangle, Layers, Info, Award, PhoneCall, Video, Bed, ShieldCheck, X, Globe } from 'lucide-react';
@@ -179,7 +180,7 @@ export default function FamilyFacilitiesPage() {
 
   const fetchFacilities = async (lat, lng, modeVal) => {
     try {
-      const res = await fetch(`http://localhost:8000/api/family/nearest-facilities?lat=${lat}&lng=${lng}&districtId=dist-meghalaya-01&mode=${modeVal}`);
+      const res = await fetch(getApiUrl(`/api/family/nearest-facilities?lat=${lat}&lng=${lng}&districtId=dist-meghalaya-01&mode=${modeVal}`));
       if (res.ok) {
         const data = await res.json();
         setDistrictTier(data.district_tier || []);
@@ -220,7 +221,7 @@ export default function FamilyFacilitiesPage() {
     setTeleconsultSuccessMsg('');
 
     try {
-      const res = await fetch('http://localhost:8000/api/family/teleconsult-request', {
+      const res = await fetch(getApiUrl('/api/family/teleconsult-request'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

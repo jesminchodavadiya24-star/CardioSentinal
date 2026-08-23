@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect } from 'react';
 import DashboardShell from '../components/DashboardShell';
 import {
@@ -16,7 +17,7 @@ export default function DistrictAnomaliesPage() {
   useEffect(() => {
     async function fetchAnomalies() {
       try {
-        const res = await fetch('http://localhost:8000/api/district/anomaly-detection');
+        const res = await fetch(getApiUrl('/api/district/anomaly-detection'));
         if (res.ok) {
           const data = await res.json();
           setAnomalyData(data);

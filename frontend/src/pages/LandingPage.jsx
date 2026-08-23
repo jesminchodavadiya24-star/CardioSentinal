@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -33,7 +34,7 @@ export default function LandingPage() {
     let isMounted = true;
     async function fetchLiveCount() {
       try {
-        const res = await fetch('http://localhost:8000/api/triage/children');
+        const res = await fetch(getApiUrl('/api/triage/children'));
         if (res.ok) {
           const data = await res.json();
           if (isMounted && data.children && data.children.length > 0) {

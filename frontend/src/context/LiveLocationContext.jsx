@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 const LiveLocationContext = createContext();
@@ -21,7 +22,7 @@ export function LiveLocationProvider({ children }) {
   const fetchNarrative = useCallback(async (lat, lng, activeMode) => {
     setNarrativeLoading(true);
     try {
-      let url = `http://localhost:8000/api/location/local-narrative?mode=${activeMode}`;
+      let url = getApiUrl(`/api/location/local-narrative?mode=${activeMode}`);
       if (activeMode === 'live' && lat != null && lng != null) {
         url += `&lat=${lat}&lng=${lng}`;
       }

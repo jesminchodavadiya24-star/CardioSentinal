@@ -1,3 +1,4 @@
+import { getApiUrl } from '../config/apiConfig';
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { HeartPulse, Send, ArrowLeft, Sparkles, Globe, Activity, CheckCircle2, ShieldCheck, MapPin, MessageSquare, BookOpen, HelpCircle } from 'lucide-react';
@@ -263,7 +264,7 @@ export default function FamilyAskPage() {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 2500);
 
-      const res = await fetch('http://localhost:8000/api/family/ask', {
+      const res = await fetch(getApiUrl('/api/family/ask'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         signal: controller.signal,
