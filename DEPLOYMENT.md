@@ -24,9 +24,10 @@ This guide provides step-by-step instructions to deploy the entire **CardioSenti
 3. Configure the service settings:
    - **Name**: `cardiosentinel-ml`
    - **Root Directory**: `ml-service`
-   - **Environment**: `Python 3` (or `Docker`)
+   - **Environment**: **`Docker`** (Recommended) or **`Python 3`**
    - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+   - **Start Command**: `python -m uvicorn main:app --host 0.0.0.0 --port $PORT`
+   - **Environment Variables**: Add `PYTHON_VERSION`: `3.11.8`
 4. Click **Create Web Service**. Copy the deployed URL (e.g. `https://cardiosentinel-ml.onrender.com`).
 
 ---
@@ -38,10 +39,11 @@ This guide provides step-by-step instructions to deploy the entire **CardioSenti
 3. Configure settings:
    - **Name**: `cardiosentinel-backend`
    - **Root Directory**: `backend`
-   - **Environment**: `Python 3` (or `Docker`)
-   - **Build Command**: `pip install -r requirements.txt` (or `pip install fastapi uvicorn requests pydantic google-generativeai`)
+   - **Environment**: **`Docker`** (Recommended) or **`Python 3`**
+   - **Build Command**: `pip install -r requirements.txt`
    - **Start Command**: `python -m uvicorn server:app --host 0.0.0.0 --port $PORT`
-4. Add **Environment Variables**:
+   - **Environment Variables**: Add `PYTHON_VERSION`: `3.11.8`
+4. Add Environment Variables:
    - `GEMINI_API_KEY`: `<YOUR_GEMINI_API_KEY>`
    - `ML_SERVICE_URL`: `https://cardiosentinel-ml.onrender.com` (URL from Step 1)
 5. Click **Create Web Service**. Copy the deployed backend URL (e.g. `https://cardiosentinel-backend.onrender.com`).
